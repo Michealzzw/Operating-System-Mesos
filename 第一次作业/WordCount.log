@@ -1,0 +1,238 @@
+localhost:spark-2.1.0-bin-hadoop2.7 Zhengkoi$ ./bin/spark-submit --master mesos://127.0.0.1:5050 --executor-cores 4  examples/src/main/python/wordcount.py /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/README.md
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/03/08 03:27:01 WARN Utils: Your hostname, localhost resolves to a loopback address: 127.0.0.1; using 192.168.0.101 instead (on interface en0)
+17/03/08 03:27:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+17/03/08 03:27:02 INFO SparkContext: Running Spark version 2.1.0
+17/03/08 03:27:02 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/03/08 03:27:03 INFO SecurityManager: Changing view acls to: Zhengkoi
+17/03/08 03:27:03 INFO SecurityManager: Changing modify acls to: Zhengkoi
+17/03/08 03:27:03 INFO SecurityManager: Changing view acls groups to: 
+17/03/08 03:27:03 INFO SecurityManager: Changing modify acls groups to: 
+17/03/08 03:27:03 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(Zhengkoi); groups with view permissions: Set(); users  with modify permissions: Set(Zhengkoi); groups with modify permissions: Set()
+17/03/08 03:27:03 INFO Utils: Successfully started service 'sparkDriver' on port 57595.
+17/03/08 03:27:03 INFO SparkEnv: Registering MapOutputTracker
+17/03/08 03:27:03 INFO SparkEnv: Registering BlockManagerMaster
+17/03/08 03:27:03 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+17/03/08 03:27:03 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+17/03/08 03:27:03 INFO DiskBlockManager: Created local directory at /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/blockmgr-cda87570-e840-4842-b6ff-160369b9d038
+17/03/08 03:27:03 INFO MemoryStore: MemoryStore started with capacity 366.3 MB
+17/03/08 03:27:03 INFO SparkEnv: Registering OutputCommitCoordinator
+17/03/08 03:27:04 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+17/03/08 03:27:04 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.101:4040
+17/03/08 03:27:04 INFO SparkContext: Added file file:/Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py at spark://192.168.0.101:57595/files/wordcount.py with timestamp 1488914824817
+17/03/08 03:27:04 INFO Utils: Copying /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py to /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-e4ddd9ba-5e53-4324-997f-411e848f164c/userFiles-fd026201-7289-49b7-bdfd-1059fcec807e/wordcount.py
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0308 03:27:05.232931 43102208 sched.cpp:1727] 
+**************************************************
+Scheduler driver bound to loopback interface! Cannot communicate with remote master(s). You might want to set 'LIBPROCESS_IP' environment variable to use a routable IP address.
+**************************************************
+I0308 03:27:05.252728 77099008 sched.cpp:232] Version: 1.3.0
+I0308 03:27:05.268196 74428416 sched.cpp:336] New master detected at master@127.0.0.1:5050
+I0308 03:27:05.268877 74428416 sched.cpp:352] No credentials provided. Attempting to register without authentication
+I0308 03:27:05.275297 74428416 sched.cpp:759] Framework registered with df20ffc5-cf43-40e6-8081-74f860c5f45f-0010
+17/03/08 03:27:05 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 57599.
+17/03/08 03:27:05 INFO NettyBlockTransferService: Server created on 192.168.0.101:57599
+17/03/08 03:27:05 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/03/08 03:27:05 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.0.101, 57599, None)
+17/03/08 03:27:05 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.0.101:57599 with 366.3 MB RAM, BlockManagerId(driver, 192.168.0.101, 57599, None)
+17/03/08 03:27:05 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.0.101, 57599, None)
+17/03/08 03:27:05 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.0.101, 57599, None)
+17/03/08 03:27:05 INFO MesosCoarseGrainedSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+17/03/08 03:27:06 INFO SharedState: Warehouse path is 'file:/Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/spark-warehouse/'.
+17/03/08 03:27:11 INFO FileSourceStrategy: Pruning directories with: 
+17/03/08 03:27:11 INFO FileSourceStrategy: Post-Scan Filters: 
+17/03/08 03:27:11 INFO FileSourceStrategy: Output Data Schema: struct<value: string>
+17/03/08 03:27:11 INFO FileSourceStrategy: Pushed Filters: 
+17/03/08 03:27:13 INFO CodeGenerator: Code generated in 882.504177 ms
+17/03/08 03:27:13 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 278.0 KB, free 366.0 MB)
+d17/03/08 03:27:13 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.6 KB, free 366.0 MB)
+17/03/08 03:27:13 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 192.168.0.101:57599 (size: 23.6 KB, free: 366.3 MB)
+17/03/08 03:27:13 INFO SparkContext: Created broadcast 0 from javaToPython at NativeMethodAccessorImpl.java:0
+17/03/08 03:27:13 INFO FileSourceScanExec: Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+17/03/08 03:27:14 INFO SparkContext: Starting job: collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41
+17/03/08 03:27:14 INFO DAGScheduler: Registering RDD 5 (reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40)
+17/03/08 03:27:14 INFO DAGScheduler: Got job 0 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41) with 1 output partitions
+17/03/08 03:27:14 INFO DAGScheduler: Final stage: ResultStage 1 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41)
+17/03/08 03:27:14 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 0)
+17/03/08 03:27:14 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 0)
+17/03/08 03:27:14 INFO DAGScheduler: Submitting ShuffleMapStage 0 (PairwiseRDD[5] at reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40), which has no missing parents
+17/03/08 03:27:14 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 13.7 KB, free 366.0 MB)
+17/03/08 03:27:14 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 7.7 KB, free 366.0 MB)
+17/03/08 03:27:14 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 192.168.0.101:57599 (size: 7.7 KB, free: 366.3 MB)
+17/03/08 03:27:14 INFO SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:996
+17/03/08 03:27:14 INFO DAGScheduler: Submitting 1 missing tasks from ShuffleMapStage 0 (PairwiseRDD[5] at reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40)
+17/03/08 03:27:14 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
+17/03/08 03:27:29 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:27:44 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:27:56 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 0 is now TASK_RUNNING
+17/03/08 03:27:59 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:28:00 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 0 is now TASK_FAILED
+17/03/08 03:28:00 INFO BlockManagerMaster: Removal of executor 0 requested
+17/03/08 03:28:00 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Asked to remove non-existent executor 0
+17/03/08 03:28:00 INFO BlockManagerMasterEndpoint: Trying to remove executor 0 from BlockManagerMaster.
+17/03/08 03:28:14 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:28:29 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:28:33 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 1 is now TASK_RUNNING
+17/03/08 03:28:38 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (192.168.0.101:57657) with ID 1
+17/03/08 03:28:38 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor 1, partition 0, PROCESS_LOCAL, 6772 bytes)
+17/03/08 03:28:38 INFO BlockManagerMasterEndpoint: Registering block manager localhost:57658 with 366.3 MB RAM, BlockManagerId(1, localhost, 57658, None)
+17/03/08 03:28:39 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on localhost:57658 (size: 7.7 KB, free: 366.3 MB)
+17/03/08 03:28:42 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:57658 (size: 23.6 KB, free: 366.3 MB)
+17/03/08 03:28:44 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 5849 ms on localhost (executor 1) (1/1)
+17/03/08 03:28:44 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+17/03/08 03:28:44 INFO DAGScheduler: ShuffleMapStage 0 (reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40) finished in 89.822 s
+17/03/08 03:28:44 INFO DAGScheduler: looking for newly runnable stages
+17/03/08 03:28:44 INFO DAGScheduler: running: Set()
+17/03/08 03:28:44 INFO DAGScheduler: waiting: Set(ResultStage 1)
+17/03/08 03:28:44 INFO DAGScheduler: failed: Set()
+17/03/08 03:28:44 INFO DAGScheduler: Submitting ResultStage 1 (PythonRDD[8] at collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41), which has no missing parents
+17/03/08 03:28:44 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 6.1 KB, free 366.0 MB)
+17/03/08 03:28:44 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 3.7 KB, free 366.0 MB)
+17/03/08 03:28:44 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 192.168.0.101:57599 (size: 3.7 KB, free: 366.3 MB)
+17/03/08 03:28:44 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:996
+17/03/08 03:28:44 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (PythonRDD[8] at collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41)
+17/03/08 03:28:44 INFO TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
+17/03/08 03:28:44 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, localhost, executor 1, partition 0, NODE_LOCAL, 5982 bytes)
+17/03/08 03:28:44 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on localhost:57658 (size: 3.7 KB, free: 366.3 MB)
+17/03/08 03:28:44 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to 192.168.0.101:57657
+17/03/08 03:28:44 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 0 is 140 bytes
+17/03/08 03:28:44 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 269 ms on localhost (executor 1) (1/1)
+17/03/08 03:28:44 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+17/03/08 03:28:44 INFO DAGScheduler: ResultStage 1 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41) finished in 0.275 s
+17/03/08 03:28:44 INFO DAGScheduler: Job 0 finished: collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41, took 90.353710 s
+17/03/08 03:28:44 INFO SparkUI: Stopped Spark web UI at http://192.168.0.101:4040
+17/03/08 03:28:44 INFO MesosCoarseGrainedSchedulerBackend: Shutting down all executors
+17/03/08 03:28:44 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Asking each executor to shut down
+17/03/08 03:28:45 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 1 is now TASK_FINISHED
+I0308 03:28:45.232488 43102208 sched.cpp:2021] Asked to stop the driver
+I0308 03:28:45.233467 72818688 sched.cpp:1203] Stopping framework df20ffc5-cf43-40e6-8081-74f860c5f45f-0010
+17/03/08 03:28:45 INFO MesosCoarseGrainedSchedulerBackend: driver.run() returned with code DRIVER_STOPPED
+17/03/08 03:28:45 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+17/03/08 03:28:45 INFO MemoryStore: MemoryStore cleared
+17/03/08 03:28:45 INFO BlockManager: BlockManager stopped
+17/03/08 03:28:45 INFO BlockManagerMaster: BlockManagerMaster stopped
+17/03/08 03:28:45 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+17/03/08 03:28:45 INFO SparkContext: Successfully stopped SparkContext
+17/03/08 03:28:45 INFO ShutdownHookManager: Shutdown hook called
+17/03/08 03:28:45 INFO ShutdownHookManager: Deleting directory /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-e4ddd9ba-5e53-4324-997f-411e848f164c
+17/03/08 03:28:45 INFO ShutdownHookManager: Deleting directory /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-e4ddd9ba-5e53-4324-997f-411e848f164c/pyspark-55cf1843-66ad-409d-b972-d7352f4a606f
+localhost:spark-2.1.0-bin-hadoop2.7 Zhengkoi$ ./bin/spark-submit --master mesos://127.0.0.1:5050 --executor-cores 1  examples/src/main/python/wordcount.py /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/README.md
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/03/08 03:30:24 WARN Utils: Your hostname, localhost resolves to a loopback address: 127.0.0.1; using 192.168.0.101 instead (on interface en0)
+17/03/08 03:30:24 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+17/03/08 03:30:25 INFO SparkContext: Running Spark version 2.1.0
+17/03/08 03:30:26 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/03/08 03:30:26 INFO SecurityManager: Changing view acls to: Zhengkoi
+17/03/08 03:30:26 INFO SecurityManager: Changing modify acls to: Zhengkoi
+17/03/08 03:30:26 INFO SecurityManager: Changing view acls groups to: 
+17/03/08 03:30:26 INFO SecurityManager: Changing modify acls groups to: 
+17/03/08 03:30:26 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(Zhengkoi); groups with view permissions: Set(); users  with modify permissions: Set(Zhengkoi); groups with modify permissions: Set()
+17/03/08 03:30:27 INFO Utils: Successfully started service 'sparkDriver' on port 57722.
+17/03/08 03:30:27 INFO SparkEnv: Registering MapOutputTracker
+17/03/08 03:30:27 INFO SparkEnv: Registering BlockManagerMaster
+17/03/08 03:30:27 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+17/03/08 03:30:27 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+17/03/08 03:30:27 INFO DiskBlockManager: Created local directory at /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/blockmgr-e43e6463-6e8b-4305-ba8c-b4e574b001c5
+17/03/08 03:30:27 INFO MemoryStore: MemoryStore started with capacity 366.3 MB
+17/03/08 03:30:28 INFO SparkEnv: Registering OutputCommitCoordinator
+17/03/08 03:30:29 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+17/03/08 03:30:29 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://192.168.0.101:4040
+17/03/08 03:30:30 INFO SparkContext: Added file file:/Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py at spark://192.168.0.101:57722/files/wordcount.py with timestamp 1488915030041
+17/03/08 03:30:30 INFO Utils: Copying /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py to /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-824cb336-048b-419b-a470-d362330dc69d/userFiles-fc231953-b1bf-424c-b38f-4de48773c850/wordcount.py
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0308 03:30:30.720229 116129792 sched.cpp:1727] 
+**************************************************
+Scheduler driver bound to loopback interface! Cannot communicate with remote master(s). You might want to set 'LIBPROCESS_IP' environment variable to use a routable IP address.
+**************************************************
+I0308 03:30:30.741050 149590016 sched.cpp:232] Version: 1.3.0
+I0308 03:30:30.757131 146382848 sched.cpp:336] New master detected at master@127.0.0.1:5050
+I0308 03:30:30.758055 146382848 sched.cpp:352] No credentials provided. Attempting to register without authentication
+I0308 03:30:30.762253 147992576 sched.cpp:759] Framework registered with df20ffc5-cf43-40e6-8081-74f860c5f45f-0011
+17/03/08 03:30:30 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 57726.
+17/03/08 03:30:30 INFO NettyBlockTransferService: Server created on 192.168.0.101:57726
+17/03/08 03:30:30 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/03/08 03:30:30 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.0.101, 57726, None)
+17/03/08 03:30:30 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.0.101:57726 with 366.3 MB RAM, BlockManagerId(driver, 192.168.0.101, 57726, None)
+17/03/08 03:30:30 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.0.101, 57726, None)
+17/03/08 03:30:30 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.0.101, 57726, None)
+17/03/08 03:30:31 INFO MesosCoarseGrainedSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+17/03/08 03:30:32 INFO SharedState: Warehouse path is 'file:/Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/spark-warehouse/'.
+17/03/08 03:30:38 INFO FileSourceStrategy: Pruning directories with: 
+17/03/08 03:30:38 INFO FileSourceStrategy: Post-Scan Filters: 
+17/03/08 03:30:38 INFO FileSourceStrategy: Output Data Schema: struct<value: string>
+17/03/08 03:30:38 INFO FileSourceStrategy: Pushed Filters: 
+17/03/08 03:30:39 INFO CodeGenerator: Code generated in 837.998172 ms
+17/03/08 03:30:40 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 278.0 KB, free 366.0 MB)
+17/03/08 03:30:40 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 23.6 KB, free 366.0 MB)
+17/03/08 03:30:40 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on 192.168.0.101:57726 (size: 23.6 KB, free: 366.3 MB)
+17/03/08 03:30:40 INFO SparkContext: Created broadcast 0 from javaToPython at NativeMethodAccessorImpl.java:0
+17/03/08 03:30:40 INFO FileSourceScanExec: Planning scan with bin packing, max size: 4194304 bytes, open cost is considered as scanning 4194304 bytes.
+17/03/08 03:30:41 INFO SparkContext: Starting job: collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41
+17/03/08 03:30:41 INFO DAGScheduler: Registering RDD 5 (reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40)
+17/03/08 03:30:41 INFO DAGScheduler: Got job 0 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41) with 1 output partitions
+17/03/08 03:30:41 INFO DAGScheduler: Final stage: ResultStage 1 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41)
+17/03/08 03:30:41 INFO DAGScheduler: Parents of final stage: List(ShuffleMapStage 0)
+17/03/08 03:30:41 INFO DAGScheduler: Missing parents: List(ShuffleMapStage 0)
+17/03/08 03:30:41 INFO DAGScheduler: Submitting ShuffleMapStage 0 (PairwiseRDD[5] at reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40), which has no missing parents
+17/03/08 03:30:41 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 13.7 KB, free 366.0 MB)
+17/03/08 03:30:41 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 7.7 KB, free 366.0 MB)
+17/03/08 03:30:41 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on 192.168.0.101:57726 (size: 7.7 KB, free: 366.3 MB)
+17/03/08 03:30:41 INFO SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:996
+17/03/08 03:30:41 INFO DAGScheduler: Submitting 1 missing tasks from ShuffleMapStage 0 (PairwiseRDD[5] at reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40)
+17/03/08 03:30:41 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
+17/03/08 03:30:56 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:31:11 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:31:26 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:31:31 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 0 is now TASK_FAILED
+17/03/08 03:31:31 INFO BlockManagerMaster: Removal of executor 0 requested
+17/03/08 03:31:31 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Asked to remove non-existent executor 0
+17/03/08 03:31:31 INFO BlockManagerMasterEndpoint: Trying to remove executor 0 from BlockManagerMaster.
+17/03/08 03:31:41 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:31:56 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:32:09 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 1 is now TASK_RUNNING
+17/03/08 03:32:11 WARN TaskSchedulerImpl: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
+17/03/08 03:32:15 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Registered executor NettyRpcEndpointRef(null) (192.168.0.101:57818) with ID 1
+17/03/08 03:32:15 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, executor 1, partition 0, PROCESS_LOCAL, 6772 bytes)
+17/03/08 03:32:15 INFO BlockManagerMasterEndpoint: Registering block manager localhost:57819 with 366.3 MB RAM, BlockManagerId(1, localhost, 57819, None)
+17/03/08 03:32:16 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on localhost:57819 (size: 7.7 KB, free: 366.3 MB)
+17/03/08 03:32:20 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:57819 (size: 23.6 KB, free: 366.3 MB)
+17/03/08 03:32:21 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 6587 ms on localhost (executor 1) (1/1)
+17/03/08 03:32:21 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
+17/03/08 03:32:21 INFO DAGScheduler: ShuffleMapStage 0 (reduceByKey at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:40) finished in 100.053 s
+17/03/08 03:32:21 INFO DAGScheduler: looking for newly runnable stages
+17/03/08 03:32:21 INFO DAGScheduler: running: Set()
+17/03/08 03:32:21 INFO DAGScheduler: waiting: Set(ResultStage 1)
+17/03/08 03:32:21 INFO DAGScheduler: failed: Set()
+17/03/08 03:32:21 INFO DAGScheduler: Submitting ResultStage 1 (PythonRDD[8] at collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41), which has no missing parents
+17/03/08 03:32:21 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 6.1 KB, free 366.0 MB)
+17/03/08 03:32:21 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 3.7 KB, free 366.0 MB)
+17/03/08 03:32:21 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on 192.168.0.101:57726 (size: 3.7 KB, free: 366.3 MB)
+17/03/08 03:32:21 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:996
+17/03/08 03:32:21 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (PythonRDD[8] at collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41)
+17/03/08 03:32:21 INFO TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
+17/03/08 03:32:21 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, localhost, executor 1, partition 0, NODE_LOCAL, 5982 bytes)
+17/03/08 03:32:22 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on localhost:57819 (size: 3.7 KB, free: 366.3 MB)
+17/03/08 03:32:22 INFO MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 0 to 192.168.0.101:57818
+17/03/08 03:32:22 INFO MapOutputTrackerMaster: Size of output statuses for shuffle 0 is 140 bytes
+17/03/08 03:32:22 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 300 ms on localhost (executor 1) (1/1)
+17/03/08 03:32:22 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
+17/03/08 03:32:22 INFO DAGScheduler: ResultStage 1 (collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41) finished in 0.304 s
+17/03/08 03:32:22 INFO DAGScheduler: Job 0 finished: collect at /Users/Zhengkoi/Documents/workspace/mesos/build/3rdparty/spark-2.1.0-bin-hadoop2.7/examples/src/main/python/wordcount.py:41, took 100.678877 s
+17/03/08 03:32:22 INFO SparkUI: Stopped Spark web UI at http://192.168.0.101:4040
+17/03/08 03:32:22 INFO MesosCoarseGrainedSchedulerBackend: Shutting down all executors
+17/03/08 03:32:22 INFO CoarseGrainedSchedulerBackend$DriverEndpoint: Asking each executor to shut down
+17/03/08 03:32:22 INFO MesosCoarseGrainedSchedulerBackend: Mesos task 1 is now TASK_FINISHED
+I0308 03:32:22.641991 116129792 sched.cpp:2021] Asked to stop the driver
+I0308 03:32:22.642488 145309696 sched.cpp:1203] Stopping framework df20ffc5-cf43-40e6-8081-74f860c5f45f-0011
+17/03/08 03:32:22 INFO MesosCoarseGrainedSchedulerBackend: driver.run() returned with code DRIVER_STOPPED
+17/03/08 03:32:22 INFO MapOutputTrackerMasterEndpoint: MapOutputTrackerMasterEndpoint stopped!
+17/03/08 03:32:22 INFO MemoryStore: MemoryStore cleared
+17/03/08 03:32:22 INFO BlockManager: BlockManager stopped
+17/03/08 03:32:22 INFO BlockManagerMaster: BlockManagerMaster stopped
+17/03/08 03:32:22 INFO OutputCommitCoordinator$OutputCommitCoordinatorEndpoint: OutputCommitCoordinator stopped!
+17/03/08 03:32:22 INFO SparkContext: Successfully stopped SparkContext
+17/03/08 03:32:23 INFO ShutdownHookManager: Shutdown hook called
+17/03/08 03:32:23 INFO ShutdownHookManager: Deleting directory /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-824cb336-048b-419b-a470-d362330dc69d/pyspark-77843400-6d68-486f-9722-f32c4129670b
+17/03/08 03:32:23 INFO ShutdownHookManager: Deleting directory /private/var/folders/rw/03j89h3j4gq5_gcy4zpy1rhw0000gn/T/spark-824cb336-048b-419b-a470-d362330dc69d
+localhost:spark-2.1.0-bin-hadoop2.7 Zhengkoi$ 
+
