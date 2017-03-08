@@ -59,3 +59,5 @@
             .config("spark.executor.uri", "http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz")\
             .appName("PythonWordCount")\
             .getOrCreate()
+    4.mac系统下找不到libmesos.so
+    解决：官网上说明mac下应该是libmesos.dylib，但是却不在那个目录，通过find找到在build下的lib中
