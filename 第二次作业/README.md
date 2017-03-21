@@ -2,7 +2,7 @@
 郑子威 1300012711 信息科学技术学院
 
 
-##用自己的语言描述Mesos的组成结构，指出它们在源码中的具体位置，简单描述一下它们的工作流程
+用自己的语言描述Mesos的组成结构，指出它们在源码中的具体位置，简单描述一下它们的工作流程
 
     Apache Mesos由四个组件组成，分别是master，slave，framework和executor。
 
@@ -24,7 +24,7 @@
       主要用于启动框架内部的task。由于不同的框架，启动task的接口或者方式不同，当一个新的框架要接入mesos时，需要编写一个executor，告诉mesos如何启动该框架中的task。
 
 
-##用自己的语言描述框架（如Spark On Mesos）在Mesos上的运行过程，并与在传统操作系统上运行程序进行对比
+用自己的语言描述框架（如Spark On Mesos）在Mesos上的运行过程，并与在传统操作系统上运行程序进行对比
 
     Spark On Mesos是一个双层调度的运行过程，框架（spark）通过注册获取mesos分配给自己的资源，然后再由自己的调度器将这些资源分配给框架中的任务。
     在mesos上面的运行流程：
@@ -37,7 +37,7 @@
 
 
 
-##叙述master和slave的初始化过程
+叙述master和slave的初始化过程
 
     master 初始化过程
     （src/master/master.cpp）
@@ -61,7 +61,7 @@
 
 
 
-##查找资料，简述Mesos的资源调度算法，指出在源代码中的具体位置并阅读，说说你对它的看法
+查找资料，简述Mesos的资源调度算法，指出在源代码中的具体位置并阅读，说说你对它的看法
 
 
 
@@ -76,26 +76,21 @@
     （2）rescinds机制。如果某个framework在一定的时间内没有为分配的资源返回对应的任务，则mesos会回收其资源量，并将这些资源分配给其他framework。
 
 
-    ####Dominant Resource Fairness（DRF）
+    Dominant Resource Fairness（DRF）
 
-    DRF是一种支持多资源的max-min fair 资源分配机制，其中max表示max{CPU,mem}，而min表示min{user1,user2,…}=min{max{CPU1,mem1}, max{CPU2,mem2}, …}，其中user代表mesos中的framework，算法伪代码如下图所示：
+      DRF是一种支持多资源的max-min fair 资源分配机制，其中max表示max{CPU,mem}，而min表示min{user1,user2,…}=min{max{CPU1,mem1}, max{CPU2,mem2}, …}，其中user代表mesos中的framework，算法伪代码如下图所示：
 
-    ![Alt text]()
+      ![Alt text](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF.png)
 
-    举例说明，假设系统中共有9 CPUs 和18 GB RAM，有两个user（framework）分别运行了两种任务，分别需要的资源量为<1 CPU, 4 GB> 和 <3 CPUs, 1 GB>。对于用户A，每个task要消耗总CPU的1/9和总内存的2/9，因而A的支配性资源为内存；对于用户B，每个task要消耗总CPU的1/3和总内存的1/18，因而B的支配性资源为CPU。DRF将均衡所有用户的支配性资源，即：A获取的资源量为：<3 CPUs，12 GB>，可运行3个task；而B获取的资源量为<6 CPUs, 2GB>，可运行2个task，这样分配，每个用户获取了相同比例的支配性资源，即：A获取了2/3的RAMs，B获取了2/3的CPUs。
+      举例说明，假设系统中共有9 CPUs 和18 GB RAM，有两个user（framework）分别运行了两种任务，分别需要的资源量为<1 CPU, 4 GB> 和 <3 CPUs, 1 GB>。对于用户A，每个task要消耗总CPU的1/9和总内存的2/9，因而A的支配性资源为内存；对于用户B，每个task要消耗总CPU的1/3和总内存的1/18，因而B的支配性资源为CPU。DRF将均衡所有用户的支配性资源，即：A获取的资源量为：<3 CPUs，12 GB>，可运行3个task；而B获取的资源量为<6 CPUs, 2GB>，可运行2个task，这样分配，每个用户获取了相同比例的支配性资源，即：A获取了2/3的RAMs，B获取了2/3的CPUs。
 
-    DRF算法的一个可能的调度序列如下图所示：
+      DRF算法的一个可能的调度序列如下图所示：
 
-    ![Alt text]()
+      ![Alt text](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF2.png)
 
-    DRF的好处是可满足四个特性，即：Sharing incentive，Strategy-proofness，Envy-freeness和Pareto efficiency，具体含义参考后面给出的“参考资料”。
 
-    ####Mesos调度问题
+    Mesos调度问题
 
-    Mesos中的DRF调度算法过分的追求公平，没有考虑到实际的应用需求。在实际生产线上，往往需要类似于Hadoop中Capacity Scheduler的调度机制，将所有资源分成若干个queue，每个queue分配一定量的资源，每个user有一定的资源使用上限；更使用的调度策略是应该支持每个queue可单独定制自己的调度器策略，如：FIFO，Priority等。
-
-    由于Mesos采用了双层调度机制，在实际调度时，将面临设计决策问题：第一层和第二层调度器分别实现哪几个调度机制，即：将大部分调度机制放到第一层调度器，还是第一层调度器仅支持简单的资源分配（分配比例由管理员指定）？
-
-    Mesos采用了Resource Offer机制（不同于Hadoop中的基于slot的调度机制），这种调度机制面临着资源碎片问题，即：每个节点上的资源不可能全部被分配完，剩下的一点可能不足以让任何任务运行，这样，便产生了类似于操作系统中的内存碎片问题。
+      Mesos采用了Resource Offer机制，这种调度机制面临着资源碎片问题，即：每个节点上的资源不可能全部被分配完，剩下的一点可能不足以让任何任务运行，这样，便产生了类似于操作系统中的内存碎片问题。
 
 写一个完成简单工作的框架(语言自选，需要同时实现scheduler和executor)并在Mesos上运行，在报告中对源码进行说明并附上源码，本次作业分数50%在于本项的完成情况、创意与实用程度。（后面的参考资料一定要读，降低大量难度）
