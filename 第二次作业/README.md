@@ -98,6 +98,10 @@
     实现任务：统计素数个数
     使用PyMesos项目
     结果请看图片Prime2-x
+![Prime 2 ~ 10](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/Prime2-10.jpg)
+![Prime 2 ~ 1000000](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/Prime2-1000000.jpg)
+![Prime 2 ~ 10000000](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/Prime2-10000000-1.jpg)
+![Prime 2 ~ 10000000](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/Prime2-10000000-2.jpg)
     不知道为什么无法从外网访问5050端口，所以暂时无法查看资源信息
 
     Code：Scheduler
