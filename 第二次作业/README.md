@@ -97,6 +97,9 @@
 
     实现任务：统计素数个数
     使用PyMesos项目
+    结果请看图片Prime2-x
+    不知道为什么无法从外网访问5050端口，所以暂时无法查看资源信息
+
     Code：Scheduler
       1 #!/usr/bin/env python2.7
       2 from __future__ import print_function
@@ -106,7 +109,7 @@
       6 import math
       7 from threading import Thread
       8
-      9 from pymesos import MesosExecutorDriver, Executor, decode_data
+      9 from pymesos import MesosExecutorDriver, Executor, decode_data, encode_data
       10 from addict import Dict
       11
       12
@@ -118,19 +121,27 @@
       18             update.state = 'TASK_RUNNING'
       19             update.timestamp = time.time()
       20             driver.sendStatusUpdate(update)
+
+
+
+      计算素数个数
       21             start = int(decode_data(task.data).split(' ')[0])
       22             end = int(decode_data(task.data).split(' ')[1])
       23             primeNum = 0
       24             for i in range(start,end):
       25                 flag = True
-      26                 for j in range(2, int(math.sqrt(i))):
+      26                 for j in range(2, int(math.sqrt(i))+1):
       27                     if (i % j == 0):
       28                         flag = False
       29                         break
-      30                 if flag:
+      30                 if flag or i==2:
       31                     primeNum = primeNum+1
-      32
-      33             driver.sendFrameworkMessage(encode_data(str(primeNum)))
+
+      发送结果给Scheduler
+      32             message = encode_data(str(start)+' '+str(end)+' '+str(primeNum))
+      33             driver.sendFrameworkMessage(message);
+
+      结束Task
       34             update = Dict()
       35             update.task_id.value = task.task_id.value
       36             update.state = 'TASK_FINISHED'
@@ -147,6 +158,8 @@
       47     driver = MesosExecutorDriver(MinimalExecutor(), use_addict=True)
       48     driver.run()
 
+
+
     Code: Scheduler
       1 #!/usr/bin/env python2.7
       2 from __future__ import print_function
@@ -160,7 +173,7 @@
       10 from threading import Thread
       11 from os.path import abspath, join, dirname
       12
-      13 from pymesos import MesosSchedulerDriver, Scheduler, encode_data
+      13 from pymesos import MesosSchedulerDriver, Scheduler, encode_data, decode_data
       14 from addict import Dict
       15
       16 TASK_CPU = 0.1
@@ -181,6 +194,9 @@
       31     def __init__(self, executor):
       32         self.executor = executor
       33     
+
+      Scheduler接受来自excu的信息
+
       34     def frameworkMessage(self, driver, executorId, slaveId, message):
       35         self.taskDone = self.taskDone+1;
       36         start = int(decode_data(message).split(' ')[0])
@@ -188,9 +204,14 @@
       38         primeNum = int(decode_data(message).split(' ')[2])
       39         self.primeNum = self.primeNum + primeNum
       40         print('From %s to %s, Prime Number is %s'%(start,end,primeNum))
-      41         if self.taskDone >= self.taskDone:
-      42             print('From 2 to %s, Prime Number is %s', self.maxNum, self.primeNum)
+
+      任务结束
+      41         if self.taskDone >= self.taskNum:
+      42             print('From 2 to %s, Prime Number is %s'%(self.maxNum, self.prim    eNum))
       43             driver.stop()
+
+
+
       44
       45     def resourceOffers(self, driver, offers):
       46         if self.nowTaskID >= self.taskNum:
@@ -212,6 +233,8 @@
       62             task.executor = self.executor
       63
       64
+
+      task.data分配任务
       65             start = self.nowTaskID*self.block+2
       66             end = (self.nowTaskID+1)*self.block+2
       67             if end > self.maxNum+1:
@@ -224,7 +247,11 @@
       74             ]
       75             print('Task %s start from %s to %s'%(self.nowTaskID, start, end))
       76             self.nowTaskID = self.nowTaskID + 1
+
+      运行任务
       77             driver.launchTasks(offer.id, [task], filters)
+
+
       78
       79     def getResource(self, res, name):
       80         for r in res:
