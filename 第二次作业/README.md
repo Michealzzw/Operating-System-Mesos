@@ -80,13 +80,13 @@
 
       DRF是一种支持多资源的max-min fair 资源分配机制，其中max表示max{CPU,mem}，而min表示min{user1,user2,…}=min{max{CPU1,mem1}, max{CPU2,mem2}, …}，其中user代表mesos中的framework，算法伪代码如下图所示：
 
-      ![DRF](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF.png)
+![DRF](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF.png)
 
       举例说明，假设系统中共有9 CPUs 和18 GB RAM，有两个user（framework）分别运行了两种任务，分别需要的资源量为<1 CPU, 4 GB> 和 <3 CPUs, 1 GB>。对于用户A，每个task要消耗总CPU的1/9和总内存的2/9，因而A的支配性资源为内存；对于用户B，每个task要消耗总CPU的1/3和总内存的1/18，因而B的支配性资源为CPU。DRF将均衡所有用户的支配性资源，即：A获取的资源量为：<3 CPUs，12 GB>，可运行3个task；而B获取的资源量为<6 CPUs, 2GB>，可运行2个task，这样分配，每个用户获取了相同比例的支配性资源，即：A获取了2/3的RAMs，B获取了2/3的CPUs。
 
       DRF算法的一个可能的调度序列如下图所示：
 
-      ![DRF](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF2.png)
+![DRF](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E4%BD%9C%E4%B8%9A/DRF2.png)
 
 
     Mesos调度问题
