@@ -63,13 +63,13 @@ docker用于查看本地镜像的命令，实例：
 ### Docker network
       docker network [COMMAND] [...]
       COMMANG:
-      ls : 列出本地所有network，初始默认包含三个网络null, host ,bridge，不可以被rm掉
-      inspect : 查看network信息或者一个container对应的网络信息等等，后面跟网络名或者--format设置返回信息与格式
-      disconnect [network] [container] : 从一个network中disconnect一个container
-      connect [network] [container] : 把一个container连接到一个network
-      create -d [network type] [network name] : 新建一个网络，设置网络类型与网络名
-      prune : 移除无用network
-      rm : 移除network
+        ls : 列出本地所有network，初始默认包含三个网络null, host ,bridge，不可以被rm掉
+        inspect : 查看network信息或者一个container对应的网络信息等等，后面跟网络名或者--format设置返回信息与格式
+        disconnect [network] [container] : 从一个network中disconnect一个container
+        connect [network] [container] : 把一个container连接到一个network
+        create -d [network type] [network name] : 新建一个网络，设置网络类型与网络名
+        prune : 移除无用network
+        rm : 移除network
 docker用于管理network的重要命令，实例：
 ![RUN](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第三次作业/4.png)
 ### Docker exec & attach
@@ -79,28 +79,67 @@ docker用于管理network的重要命令，实例：
         -i :即使没有附加也保持STDIN 打开
         -t :分配一个伪终端
 docker进入容器进行操作的重要操作，类似ssh但是不需要开启sshd，更安全。一般使用 -it<br>
-类似的有attach命令，但是attach，但是attach使用Ctrl-c推出后container也停止运行
+类似的有attach命令，但是attach使用Ctrl-c推出后container也停止运行
 
 ### Docker rmi
-docker rmi [OPTIONS] IMAGE [IMAGE...]
-OPTIONS：
-  -f :强制删除；
-  --no-prune :不移除该镜像的过程镜像，默认移除；
+      docker rmi [OPTIONS] IMAGE [IMAGE...]
+      OPTIONS：
+        -f :强制删除；
+        --no-prune :不移除该镜像的过程镜像，默认移除；
 管理镜像的命令
 
-构建nginx镜像my-nginx-web
+构建nginx镜像my-docker-nginx
 -------------
-
+### 搭建结果:
+![my-docker-nginx](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第三次作业/5.png)
+![my-docker-nginx](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第三次作业/6.png)
+### Dockerfile
+      FROM ubuntu
+      RUN apt-get -y update && apt-get install -y nginx && nginx
+      COPY index.nginx-debian.html /var/www/html/index.nginx-debian.html
+      CMD nginx && tail -f /var/log/nginx/access.log
+四个命令，从ubuntu镜像进行修改，然后安装nginx，接着拷贝修改后的nginx主页，最后运行nginx与tail（如果只运行nginx会马上消亡）
+### 运行
+      sudo docker build -t my-docker-nginx .
+      sudo docker network create -d bridge my-bridge
+      sudo docker run --network my-bridge -d -p 10080:80 my-docker-nginx
 
 网络模式
 -------------
 ### bridge
+bridge网络即桥接，最常见的网络配置，bridge网络可以通过expose,-p,-P映射container中的端口到宿主机来，也可以使得同一个bridge中container之间互相联通
+。
 ### null
+无网络,在docker初始化的时候就建立了一个 none网络，经过尝试，null网络不能由network创建。在null网络下运行的container只有本地网络，无法与别的容器与宿主机联通（即使使用expose,-p,-P也不行）
 ### host
+在docker初始化的时候就建立了一个 host网络，经过尝试，host网络不能由network创建。在host网络下运行的container内部网络与宿主机的网络端口一致。
 ### overlay
+overlay网络可以与宿主机之外的别的主机联通<br>
+swarm overlay需要简单的初始化<br>
+sudo docker swarm init --advertise-addr [MANAGER IP]<br>
+![network](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第三次作业/7.png)
+
 
 Mesos与Docker的交互
 -------------
+### 交互方式
+    Try<Subprocess> s = subprocess(
+        path,
+        argv,
+        Subprocess::PATH("/dev/null"),
+        \_stdout,
+        \_stderr,
+        nullptr);
 
-在Mesos上运行my-nginx-web
+通过查看代码发现，主要的交互方式是创建子进程来运行对应的docker命令
+### RUN
+       查看docker是否存在
+       获取docker信息
+       处理命令行参数
+       创建子进程来运行“docker run”
+       处理错误情况
+       处理返回信息
+
+
+在Mesos上运行my-docker-nginx
 -------------
