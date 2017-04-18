@@ -1,4 +1,4 @@
-第三次作业报告
+第四次作业报告
 ================
 郑子威 1300012711 信息科学技术学院
 
@@ -29,8 +29,7 @@ HDFS有着高容错性（fault-tolerant）的特点，并且设计用来部署�
 GlusterFS通过Infiniband RDMA 或者Tcp/Ip 方式将许多廉价的x86 主机，通过网络互联成一个并行的网络文件系统
 ### AUFS --- 联合文件系统
 AUFS是一种Union File System，所谓UnionFS就是把不同物理位置的目录合并mount到同一个目录中。UnionFS的一个最主要的应用是，把一张CD/DVD和一个硬盘目录给联合 mount在一起，然后，你就可以对这个只读的CD/DVD上的文件进行修改（当然，修改的文件存于硬盘上的目录里）。<br>
-
-AUFS又叫Another UnionFS，后来叫Alternative UnionFS，后来可能觉得不够霸气，叫成Advance UnionFS。是个叫Junjiro Okajima（岡島順治郎）在2006年开发的，AUFS完全重写了早期的UnionFS 1.x，其主要目的是为了可靠性和性能，并且引入了一些新的功能，比如可写分支的负载均衡。AUFS在使用上全兼容UnionFS，而且比之前的UnionFS在稳定性和性能上都要好很多，后来的UnionFS 2.x开始抄AUFS中的功能。但是他居然没有进到Linux主干里，就是因为Linus不让，基本上是因为代码量比较多，而且写得烂（相对于只有3000行的union mount和10000行的UnionFS，以及其它平均下来只有6000行代码左右的VFS，AUFS居然有30000行代码），所以，岡島不断地改进代码质量，不断地提交，不断地被Linus拒掉，所以，到今天AUFS都还进不了Linux主干（今天你可以看到AUFS的代码其实还好了，比起OpenSSL好N倍，要么就是Linus对代码的质量要求非常高，要么就是Linus就是不喜欢AUFS）。 
+AUFS又叫Another UnionFS，后来叫Alternative UnionFS，后来可能觉得不够霸气，叫成Advance UnionFS。是个叫Junjiro Okajima（岡島順治郎）在2006年开发的，AUFS完全重写了早期的UnionFS 1.x，其主要目的是为了可靠性和性能，并且引入了一些新的功能，比如可写分支的负载均衡。AUFS在使用上全兼容UnionFS，而且比之前的UnionFS在稳定性和性能上都要好很多，后来的UnionFS 2.x开始抄AUFS中的功能。但是他居然没有进到Linux主干里，就是因为Linus不让，基本上是因为代码量比较多，而且写得烂（相对于只有3000行的union mount和10000行的UnionFS，以及其它平均下来只有6000行代码左右的VFS，AUFS居然有30000行代码），所以，岡島不断地改进代码质量，不断地提交，不断地被Linus拒掉，所以，到今天AUFS都还进不了Linux主干（今天你可以看到AUFS的代码其实还好了，比起OpenSSL好N倍，要么就是Linus对代码的质量要求非常高，要么就是Linus就是不喜欢AUFS）。<br>
 安装分布式文件系统
 ---------------
 Docker系统上常用的分布式文件系统有Gluster和MooseFS。本次作业安装并挂载的是Gluster系统。
@@ -53,7 +52,7 @@ sudo gluster volume start my-volume
 ```
 sudo mount -t glusterfs server0:/my-volume ./gluster-cilent-data/
 ```
-此时已经完成挂载，在客户端的文件夹上做任何修改都能在server的brick上看到。
+此时已经完成挂载，在客户端的文件夹上做任何修改都能在server的brick上看到。<br>
 挂载分布式文件系统
 ---------------
 将上次作业的index.html拷贝到my-volume中，然后直接将该文件夹挂载到容器中nginx的html文件夹
@@ -61,7 +60,7 @@ sudo mount -t glusterfs server0:/my-volume ./gluster-cilent-data/
 cp ~/mydocikerbuild/index.nginx-debian.html ~/gluster-cilent-data/
 sudo docker run -v ~/gluster-cilent-data:/var/www/html/ -p 10080:80 -d --name nginx-gluster my-docker-nginx-gluster
 ```
-成功，能在http://162.105.174.25:10080/ 访问到网页，同时直接在my-volume就可以直接修改容器内部的主页
+成功，能在http://162.105.174.25:10080/ 访问到网页，同时直接在my-volume就可以直接修改容器内部的主页<br>
 Docker镜像制作    
 ---------------
 启动一个ubuntu镜像的docker容器，查看挂载情况（需要sudo才能看到全部挂载）
