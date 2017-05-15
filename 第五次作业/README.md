@@ -281,8 +281,8 @@ CMD ["/usr/local/bin/jupyter", "notebook", "--NotebookApp.token=", "--ip=0.0.0.0
 
 ```
 ### mesos framework
-![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/5.jpeg)
-![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/6.jpeg)
+![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/5.jpg)
+![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/6.jpg)
 http://162.105.174.25:8888/   <br>
 token是zzw
 ```
