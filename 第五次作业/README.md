@@ -168,7 +168,7 @@ etcd --name node0 --initial-advertise-peer-urls http://172.16.1.137:2380 \
 --listen-peer-urls http://172.16.1.137:2380 \
 --listen-client-urls http://172.16.1.137:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.137:2379 \
---initial-cluster-token bacTlink \
+--initial-cluster-token zzw \
 --initial-cluster node0=http://172.16.1.137:2380,node1=http://172.16.1.236:2380,node2=http://172.16.1.33:2380 \
 --initial-cluster-state new >> /dev/null 2>&1 &
 
@@ -176,7 +176,7 @@ etcd --name node1 --initial-advertise-peer-urls http://172.16.1.236:2380 \
 --listen-peer-urls http://172.16.1.236:2380 \
 --listen-client-urls http://172.16.1.236:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.236:2379 \
---initial-cluster-token bacTlink \
+--initial-cluster-token zzw \
 --initial-cluster node0=http://172.16.1.137:2380,node1=http://172.16.1.236:2380,node2=http://172.16.1.33:2380 \
 --initial-cluster-state new >> /dev/null 2>&1 &
 
@@ -184,7 +184,7 @@ etcd --name node2 --initial-advertise-peer-urls http://172.16.1.33:2380 \
 --listen-peer-urls http://172.16.1.33:2380 \
 --listen-client-urls http://172.16.1.33:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.33:2379 \
---initial-cluster-token bacTlink \
+--initial-cluster-token zzw \
 --initial-cluster node0=http://172.16.1.137:2380,node1=http://172.16.1.236:2380,node2=http://172.16.1.33:2380 \
 --initial-cluster-state new >> /dev/null 2>&1 &
 
@@ -237,9 +237,9 @@ No IPv6 peers found.
 sudo apt install -y npm nodejs-legacy
 sudo npm install -g configurable-http-proxy
 
-sudo nohup configurable-http-proxy --default-target=http://192.168.0.10:8888 --ip=172.16.1.137 --port=8888 >> /dev/null 2>&1 &
-sudo nohup configurable-http-proxy --default-target=http://192.168.0.10:8888 --ip=172.16.1.236 --port=8888 >> /dev/null 2>&1 &
-sudo nohup configurable-http-proxy --default-target=http://192.168.0.10:8888 --ip=172.16.1.33 --port=8888 >> /dev/null 2>&1 &
+sudo nohup configurable-http-proxy --default-target=http://192.168.0.100:8888 --ip=172.16.1.137 --port=8888 >> /dev/null 2>&1 &
+sudo nohup configurable-http-proxy --default-target=http://192.168.0.100:8888 --ip=172.16.1.236 --port=8888 >> /dev/null 2>&1 &
+sudo nohup configurable-http-proxy --default-target=http://192.168.0.100:8888 --ip=172.16.1.33 --port=8888 >> /dev/null 2>&1 &
 
 ```
 ### 创建docker镜像
@@ -281,6 +281,10 @@ CMD ["/usr/local/bin/jupyter", "notebook", "--NotebookApp.token=", "--ip=0.0.0.0
 
 ```
 ### mesos framework
+![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/5.jpeg)
+![mesos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第五次作业/6.jpeg)
+http://162.105.174.25:8888/   <br>
+token是zzw
 ```
 #!/usr/bin/env python2.7
 from __future__ import print_function
@@ -321,7 +325,7 @@ class MinimalScheduler(Scheduler):
             if self.count==0:
              ip = Dict();
              ip.key = 'ip'
-             ip.value = '192.168.0.10'
+             ip.value = '192.168.0.100'
              NetworkInfo = Dict();
              NetworkInfo.name = 'calico_net'
              DockerInfo = Dict()
@@ -335,11 +339,11 @@ class MinimalScheduler(Scheduler):
              CommandInfo = Dict()
              CommandInfo.shell = False
              CommandInfo.value = 'jupyter'
-             CommandInfo.arguments = ['notebook', '--ip=0.0.0.0', '--NotebookApp.token=bactlink', '--port=8888']
+             CommandInfo.arguments = ['notebook', '--ip=0.0.0.0', '--NotebookApp.token=zzw', '--port=8888']
             else:
               ip = Dict()
               ip.key = 'ip'
-              ip.value = '192.168.0.1' + str(self.count)
+              ip.value = '192.168.0.10' + str(self.count)
               NetworkInfo = Dict()
               NetworkInfo.name = 'calico_net'
               DockerInfo = Dict()
