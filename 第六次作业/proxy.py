@@ -10,13 +10,9 @@ def signal_handler(signal, frame):
 		last_pid.kill()
 
 	sys.exit(0)
-
-
-
 def main():
-
 	global last_pid, last_master
-	ip_addr = '172.16.1.137'
+	addr = '172.16.1.137'
 
 	last_master = -1
 
@@ -25,74 +21,21 @@ def main():
 	while True:
 
 		for i in range(5):
-			stats_url = 'http://192.168.0.10' + str(i) + ':2379/v2/stats/self'
-			stats_request = urllib.request.Request(stats_url)
 			try:
-				stats_reponse = urllib.request.urlopen(stats_request, timeout = 2)
+				response = urllib2.urlopen('http://127.0.0.1:2379/v2/stats/self')
 			except (urllib.error.URLError, socket.timeout):
-				print('[INFO] Node 192.168.0.10' + str(i), 'is not running on this host')
+				print ("node "+str(i)" is not master")
 			else:
-				stats_json = stats_reponse.read().decode('utf-8')
-				data = json.loads(stats_json)
+				result = reponse.read().decode('utf-8')
+		        data = json.loads(result)
 				if data['state'] == 'StateLeader':
-					print('[INFO] Have found master: 192.168.0.10' + str(i))
+					print ("node "+str(i)" is master")
 					if last_master != i:
-
 						if last_master != -1:
 							last_pid.kill()
-
-						args = ['/usr/local/bin/configurable-http-proxy', \
-						'--default-target=http://192.168.0.10' + str(i) + ':8888', \
-						'--ip=' + ip_addr, '--port=8888']
+						args = ['/usr/local/bin/configurable-http-proxy', '--default-target=http://192.168.0.10' + str(i) + ':8888', '--ip=' + ip_addr, '--port=8888']
 						last_pid = subprocess.Popen(args)
 						last_master = i
-
-					else:
-						print('[INFO] Master has not changed')
-
-		stats_url = 'http://172.16.1.236:8888'
-		stats_request = urllib.request.Request(stats_url)
-		try:
-			stats_reponse = urllib.request.urlopen(stats_request, timeout = 2)
-		except (urllib.error.URLError, http.client.RemoteDisconnected, socket.timeout):
-			print('[INFO] Master is not running on host 172.16.1.236')
-		else:
-			print('[INFO] Have found master on: 172.16.1.236')
-			if last_master != 5:
-
-				if last_master != -1:
-					last_pid.kill()
-
-				args = ['/usr/local/bin/configurable-http-proxy', \
-				'--default-target=http://172.16.1.236:8888', \
-				'--ip=' + ip_addr, '--port=8888']
-				last_pid = subprocess.Popen(args)
-				last_master = 5
-
-
-
-		stats_url = 'http://172.16.1.33:8888'
-		stats_request = urllib.request.Request(stats_url)
-		try:
-			stats_reponse = urllib.request.urlopen(stats_request, timeout = 2)
-		except (urllib.error.URLError, http.client.RemoteDisconnected, socket.timeout) as e:
-			print('[INFO] Master is not running on host 172.1.33.8')
-		else:
-			print('[INFO] Have found master on: 172.16.1.33')
-			if last_master != 6:
-
-				if last_master != -1:
-					last_pid.kill()
-
-				args = ['/usr/local/bin/configurable-http-proxy', \
-				'--default-target=http://172.16.1.33:8888', \
-				'--ip=' + ip_addr, '--port=8888']
-				last_pid = subprocess.Popen(args)
-				last_master = 6
-
-
-		sys.stdout.flush()
-		time.sleep(5)
 
 
 

@@ -20,7 +20,7 @@ Assignment
 Paxos算法描述
 -------------------------
 Paxos算法解决的是带有限定条件的拜占庭问题。在拜占庭问题中，只能保证大部分人是可靠的，但是信道与消息都有可能是不可靠的；而Paxos要求信道一定是可靠的，在这个限定条件下，保证一致性。<br>
-在Paxos算法中，存在四个角色，Learner、Acceptor、Proposer和Client，如图：
+在Paxos算法中，存在四个角色，Learner、Acceptor、Proposer和Client，如图：<br>
 ![Paxos](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/paxos.png)
 如图，共有四种行为：<br>
 （1）Proposer提出议题；<br>
@@ -47,17 +47,17 @@ Paxos和Raft都是为了实现Consensus一致性这个目标，这个过程如�
 
 下面描述一个3服务器的选举过程：<br>
 （1）首先，对于联通的服务器中，没有一个Leader的时候，任何一个服务器都可以选择成为Candidate，然后对所有follower请求邀票<br>
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft1.png)
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft2.png)
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft1.png)<br>
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft2.png)<br>
 （2）得到大多数票之后，该服务器成为Leader并进行指令<br>
 
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft3.png)
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft4.png)
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft5.png)
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft3.png)<br>
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft4.png)<br>
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft5.png)<br>
 （3）此时，如果Leader挂掉了，剩下的部分follower自动成为Candidate，邀票<br>
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft6.png)
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft6.png)<br>
 （4）如果有多个Candidate，那么在timeout之后再次投票。<br>
-![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft7.png)
+![raft](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/raft7.png)<br>
 还有一种情况，如果在这一过程中，发生了网络分区或者网络通信故障，使得Leader不能访问大多数Follwers了，那么Leader只能正常更新它能访问的那些Follower服务器，则失去Leader的组继续选举一个新Leader来与外界通讯，如果之后恢复了，则原来的旧Leader自动退化，他的所有更新都不算commit，并且回滚到新Leader的更新。<br>
 日志复制：<br>
 1. 假设Leader领导人已经选出，这时客户端发出增加一个日志的要求。<br>
@@ -395,6 +395,42 @@ WORKDIR /home/admin
 
 CMD ["/usr/bin/python3", "/home/admin/code/start.py"]
 
+```
+### 自动代理
+需要分别扫描五个端口，依次发送request请求，然后对应的设置configure_proxy。因此写一个python来实时扫描：
+```
+def signal_handler(signal, frame):
+	global last_pid, last_master
+	if last_master != -1:
+		last_pid.kill()
+
+	sys.exit(0)
+def main():
+	global last_pid, last_master
+	addr = '172.16.1.137'
+
+	last_master = -1
+
+	signal.signal(signal.SIGINT, signal_handler)
+
+	while True:
+
+		for i in range(5):
+			try:
+				response = urllib2.urlopen('http://127.0.0.1:2379/v2/stats/self')
+			except (urllib.error.URLError, socket.timeout):
+				print ("node "+str(i)" is not master")
+			else:
+				result = reponse.read().decode('utf-8')
+		        data = json.loads(result)
+				if data['state'] == 'StateLeader':
+					print ("node "+str(i)" is master")
+					if last_master != i:
+						if last_master != -1:
+							last_pid.kill()
+						args = ['/usr/local/bin/configurable-http-proxy', '--default-target=http://192.168.0.10' + str(i) + ':8888', '--ip=' + ip_addr, '--port=8888']
+						last_pid = subprocess.Popen(args)
+						last_master = i
 ```
 ### 结果
 ![suicide](https://github.com/Michealzzw/Operating-System-Mesos/raw/master/第六次作业/3.pic_hd.jpg)
