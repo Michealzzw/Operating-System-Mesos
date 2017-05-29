@@ -164,7 +164,7 @@ sudo service etcd stop
 ```
 分别在三台服务器重启etcd，配置集群
 ```
-etcd --name node0 --initial-advertise-peer-urls http://172.16.1.137:2380 \
+nohup etcd --name node0 --initial-advertise-peer-urls http://172.16.1.137:2380 \
 --listen-peer-urls http://172.16.1.137:2380 \
 --listen-client-urls http://172.16.1.137:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.137:2379 \
@@ -172,7 +172,7 @@ etcd --name node0 --initial-advertise-peer-urls http://172.16.1.137:2380 \
 --initial-cluster node0=http://172.16.1.137:2380,node1=http://172.16.1.236:2380,node2=http://172.16.1.33:2380 \
 --initial-cluster-state new >> /dev/null 2>&1 &
 
-etcd --name node1 --initial-advertise-peer-urls http://172.16.1.236:2380 \
+nohup etcd --name node1 --initial-advertise-peer-urls http://172.16.1.236:2380 \
 --listen-peer-urls http://172.16.1.236:2380 \
 --listen-client-urls http://172.16.1.236:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.236:2379 \
@@ -180,7 +180,7 @@ etcd --name node1 --initial-advertise-peer-urls http://172.16.1.236:2380 \
 --initial-cluster node0=http://172.16.1.137:2380,node1=http://172.16.1.236:2380,node2=http://172.16.1.33:2380 \
 --initial-cluster-state new >> /dev/null 2>&1 &
 
-etcd --name node2 --initial-advertise-peer-urls http://172.16.1.33:2380 \
+nohupetcd --name node2 --initial-advertise-peer-urls http://172.16.1.33:2380 \
 --listen-peer-urls http://172.16.1.33:2380 \
 --listen-client-urls http://172.16.1.33:2379,http://127.0.0.1:2379 \
 --advertise-client-urls http://172.16.1.33:2379 \
